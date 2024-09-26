@@ -35,15 +35,17 @@ class _HomePageState extends State<HomePage> {
   }
 
   void removeTask(index) {
-    setState(() {
-      todoList.removeAt(index);
-    });
+    if (todoList[index][1]) {
+      setState(() {
+        todoList.removeAt(index);
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amber.shade50,
+      backgroundColor: const Color.fromARGB(255, 242, 236, 218),
       body: ListView.builder(
         itemCount: todoList.length,
         itemBuilder: (BuildContext context, int index) {

@@ -29,35 +29,39 @@ class TodoList extends StatelessWidget {
             )
           ],
         ),
-        child: Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.amber.shade100,
-              borderRadius: BorderRadius.circular(15), // Added border radius
-            ),
-            child: Row(
-              children: [
-                Checkbox(
-                  value: isDone,
-                  onChanged: onChanged,
-                  checkColor: Colors.white,
-                  activeColor: Colors.black,
-                  side: const BorderSide(color: Colors.black),
-                ),
-                Text(
-                  taskName,
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w900,
-                      decoration: isDone
-                          ? (TextDecoration.lineThrough)
-                          : TextDecoration.none,
-                      decorationThickness: 2,
-                      color: Colors.black),
-                ),
-              ],
-            )),
+        child: TaskCard(),
       ),
     );
+  }
+
+  Container TaskCard() {
+    return Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.amber.shade100,
+          borderRadius: BorderRadius.circular(15), // Added border radius
+        ),
+        child: Row(
+          children: [
+            Checkbox(
+              value: isDone,
+              onChanged: onChanged,
+              checkColor: Colors.white,
+              activeColor: Colors.black,
+              side: const BorderSide(color: Colors.black),
+            ),
+            Text(
+              taskName,
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w900,
+                  decoration: isDone
+                      ? (TextDecoration.lineThrough)
+                      : TextDecoration.none,
+                  decorationThickness: 2,
+                  color: Colors.black),
+            ),
+          ],
+        ));
   }
 }
