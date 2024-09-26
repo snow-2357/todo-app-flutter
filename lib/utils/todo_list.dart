@@ -51,8 +51,9 @@ class TodoList extends StatelessWidget {
               side: const BorderSide(color: Colors.black),
             ),
             Text(
-              taskName,
+              taskName[0].toUpperCase() + taskName.substring(1),
               style: TextStyle(
+                  // capitalize
                   fontSize: 18,
                   fontWeight: FontWeight.w900,
                   decoration: isDone
