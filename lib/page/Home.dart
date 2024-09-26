@@ -15,6 +15,7 @@ class _HomePageState extends State<HomePage> {
   final List<List<dynamic>> todoList = [];
   final TextEditingController controller = TextEditingController();
   final _storage = const FlutterSecureStorage();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -25,6 +26,7 @@ class _HomePageState extends State<HomePage> {
   // Load tasks from secure storage
   Future<void> _loadTasks() async {
     String? storedData = await _storage.read(key: 'todoList');
+
     if (storedData != null) {
       setState(() {
         todoList.addAll(List<List<dynamic>>.from(json.decode(storedData)));
@@ -52,6 +54,7 @@ class _HomePageState extends State<HomePage> {
       });
       _saveTasks();
     }
+    scrollToTop();
   }
 
   void removeTask(int index) {
@@ -63,22 +66,36 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  void scrollToTop() {
+    _scrollController.animateTo(
+      0, // Scroll to the top
+      duration: const Duration(milliseconds: 500), // Animation duration
+      curve: Curves.easeOut, // Animation curve
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 242, 236, 218),
       body: Padding(
-        padding: const EdgeInsets.only(bottom: 90),
+        padding: const EdgeInsets.only(bottom: 0),
         child: ListView.builder(
-          itemCount: todoList.length,
+          controller: _scrollController,
+          itemCount: todoList.length + 1,
           itemBuilder: (BuildContext context, int index) {
-            String task = todoList[index][0];
-            bool isDone = todoList[index][1];
-            return TodoList(
-                taskName: task,
-                isDone: isDone,
-                onChanged: (value) => checkBoxChange(index),
-                onDelete: (value) => removeTask(index));
+            if (index == todoList.length) {
+              // This is the extra space at the bottom
+              return const SizedBox(height: 100); // Adjust the height as needed
+            } else {
+              String task = todoList[index][0];
+              bool isDone = todoList[index][1];
+              return TodoList(
+                  taskName: task,
+                  isDone: isDone,
+                  onChanged: (value) => checkBoxChange(index),
+                  onDelete: (value) => removeTask(index));
+            }
           },
         ),
       ),

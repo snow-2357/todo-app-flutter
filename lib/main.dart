@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'T O D O L I S T',
+      title: 'todo',
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           appBar: AppBar(
