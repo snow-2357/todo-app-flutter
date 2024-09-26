@@ -46,17 +46,20 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 242, 236, 218),
-      body: ListView.builder(
-        itemCount: todoList.length,
-        itemBuilder: (BuildContext context, int index) {
-          String task = todoList[index][0];
-          bool isDone = todoList[index][1];
-          return TodoList(
-              taskName: task,
-              isDone: isDone,
-              onChanged: (value) => checkBoxChange(index),
-              onDelete: (value) => removeTask(index));
-        },
+      body: Padding(
+        padding: const EdgeInsets.only(bottom: 90),
+        child: ListView.builder(
+          itemCount: todoList.length,
+          itemBuilder: (BuildContext context, int index) {
+            String task = todoList[index][0];
+            bool isDone = todoList[index][1];
+            return TodoList(
+                taskName: task,
+                isDone: isDone,
+                onChanged: (value) => checkBoxChange(index),
+                onDelete: (value) => removeTask(index));
+          },
+        ),
       ),
       floatingActionButton: FloatingInput(),
     );
