@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'dart:convert'; // For JSON encoding/decoding
 import '../utils/floating_input.dart';
 import '../utils/todo_list.dart';
 
@@ -10,20 +12,36 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<List<dynamic>> todoList = [
-    ['Buy groceries', false],
-    ['Walk the dog', false],
-    ['Finish project report', false],
-    ['Call the plumber', false],
-    ['Book flight tickets', false],
-  ];
-
+  final List<List<dynamic>> todoList = [];
   final TextEditingController controller = TextEditingController();
+  final _storage = const FlutterSecureStorage();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadTasks();
+  }
+
+  // Load tasks from secure storage
+  Future<void> _loadTasks() async {
+    String? storedData = await _storage.read(key: 'todoList');
+    if (storedData != null) {
+      setState(() {
+        todoList.addAll(List<List<dynamic>>.from(json.decode(storedData)));
+      });
+    }
+  }
+
+  // Save tasks to secure storage
+  Future<void> _saveTasks() async {
+    await _storage.write(key: 'todoList', value: json.encode(todoList));
+  }
 
   void checkBoxChange(int index) {
     setState(() {
       todoList[index][1] = !todoList[index][1];
     });
+    _saveTasks();
   }
 
   void addTask() {
@@ -32,14 +50,16 @@ class _HomePageState extends State<HomePage> {
         todoList.add([controller.text, false]);
         controller.clear(); // Clear the input field after adding
       });
+      _saveTasks();
     }
   }
 
-  void removeTask(index) {
+  void removeTask(int index) {
     if (todoList[index][1]) {
       setState(() {
         todoList.removeAt(index);
       });
+      _saveTasks();
     }
   }
 
