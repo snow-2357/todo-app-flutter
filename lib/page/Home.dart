@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 242, 236, 218),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.only(bottom: 0),
         child: ListView.builder(
