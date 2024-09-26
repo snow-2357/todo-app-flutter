@@ -47,8 +47,8 @@ class _HomePageState extends State<HomePage> {
   void addTask() {
     if (controller.text.isNotEmpty) {
       setState(() {
-        todoList.add([controller.text, false]);
-        controller.clear(); // Clear the input field after adding
+        todoList.insert(0, [controller.text, false]);
+        controller.clear();
       });
       _saveTasks();
     }
