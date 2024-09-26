@@ -20,7 +20,7 @@ class TodoList extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 0, left: 20, right: 20, top: 20),
       child: Slidable(
         endActionPane: ActionPane(
-          motion: StretchMotion(),
+          motion: const StretchMotion(),
           children: [
             SlidableAction(
               onPressed: onDelete,

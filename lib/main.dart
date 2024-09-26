@@ -18,13 +18,13 @@ class MyApp extends StatelessWidget {
             title: const Text(
               "T O D O L I S T",
               style: TextStyle(
-                fontWeight: FontWeight.bold, // Corrected font style
+                fontWeight: FontWeight.bold,
               ),
             ),
             backgroundColor: Colors.amber,
             foregroundColor: Colors.black,
           ),
-          body: HomePage()),
+          body: const HomePage()),
     );
   }
 }
